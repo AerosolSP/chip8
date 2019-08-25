@@ -85,7 +85,7 @@ bool emu::loadRom(const char * fileName) {
 											//referred to with pFile. It takes two parameters, the path of the file in question and
 											//the mode. "rb" here means "read and binary mode". That's what we need!
 	if(pFile == NULL) {
-		fputs("Error loading rom", stderr); 	//Mostly self-explanatory. Just remember that fputs prints to a file stream, and stderr
+		fputs("Error loading rom. ", stderr); 	//Mostly self-explanatory. Just remember that fputs prints to a file stream, and stderr
 													//is a file stream that's part of the stdlib.
 		return false;								//If something screws up loading the rom, we're gonna want to abort the whole thing.
 	}

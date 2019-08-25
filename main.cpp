@@ -9,6 +9,8 @@ const int SCREEN_WIDTH = 64;
 const int SCREEN_MULTIPLIER = 1;
 
 uint8_t screenBuffer[SCREEN_HEIGHT * SCREEN_WIDTH * 4] = {0};
+bool bufferDebug = true;
+
 
 int pitch = 0;
 void* pixels = NULL;
@@ -36,7 +38,7 @@ void copyToBuffer()
 {
 	for(int i = 0; i < 2048; i++)
 	{
-		if(chip8.graphics[i] == 0)
+		if(chip8.graphics[i] == 1)
 		{
 			screenBuffer[(i*4)] = 255;
 			screenBuffer[(i*4)+1] = 255;
@@ -116,24 +118,39 @@ int main(int argc, char **argv)
 			if(e.type == SDL_QUIT)
 			{
 				quit = 1;
-			} else
-			{	
-				chip8.graphics[0] = 1;
-				copyToBuffer();
-				updateTexture(texture);
-				display(renderer, texture);			
-				/*chip8.emuCycle();
-				if(chip8.drawFlag)
+			} 	
+			/*chip8.graphics[0] = 1;
+			copyToBuffer();
+			if(!bufferDebug)
+			{
+				for(int i = 0; i < 32; i++)
 				{
-					copyToBuffer();
-					updateTexture(texture);
-					display(renderer, texture);
-					chip8.drawFlag = false;
-				}*/
+					printf("Location %d: %x\n", i, screenBuffer[i]);
+				}
+				bufferDebug = true;
 			}
+			updateTexture(texture);
+			display(renderer, texture);*/	
+			
+			chip8.emuCycle();
+			if(chip8.drawFlag)
+			{
+				copyToBuffer();
+				if(bufferDebug)
+			{
+				for(int i = 0; i < 32; i++)
+				{
+					printf("Location %d: %x\n", i, screenBuffer[i]);
+				}
+				bufferDebug = false;
+			}
+				updateTexture(texture);
+				display(renderer, texture);
+				chip8.drawFlag = false;
+			}		
+				
 		}
 	}
-	
 	close(window, texture, renderer);
 	return 0;
 }
