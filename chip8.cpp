@@ -83,11 +83,11 @@ void emu::initialize_chip8() {
 	srand(time(NULL));
 }
 
-bool emu::loadRom(const char * fileName) {
+bool emu::loadRom(const wchar_t * fileName) {
 	initialize_chip8(); 					//Picture this as turning the CHIP-8 on, if it helps.
 	printf("Starting %s...\n", fileName); 	// Just a little debug line, pretty self-explanatory
 
-	FILE * pFile = fopen(fileName, "rb"); 	//Look up fopen if you need more help here, but briefly, fopen returns a stream that can be
+	FILE * pFile = _wfopen(fileName, L"rb"); 	//Look up fopen if you need more help here, but briefly, fopen returns a stream that can be
 											//referred to with pFile. It takes two parameters, the path of the file in question and
 											//the mode. "rb" here means "read and binary mode". That's what we need!
 	if(pFile == NULL) {

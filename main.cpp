@@ -81,7 +81,7 @@ emu chip8;
 // 	SDL_RenderPresent(renderer);
 // }
 
-int main(int argc, char **argv)
+int wmain(int argc, wchar_t *argv[], wchar_t **envp)
 {
 	if(argc < 2)
 	{

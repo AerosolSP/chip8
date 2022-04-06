@@ -10,7 +10,7 @@ class emu {
 
 		void emuCycle(); 				// A full cycle fetches the opcode, decodes it, and executes it. This function will be responsible for
 										// all three of these tasks.
-		bool loadRom(const char * fileName);// We also need a function to load the ROM into the program memory, and fill the emulated memory's
+		bool loadRom(const wchar_t * fileName);// We also need a function to load the ROM into the program memory, and fill the emulated memory's
 										   // array with the data. This function achieves that, and requires the filepath of the rom we're
 										   // emulating in order to function, hence the parameter. Why a const *char? Because we will get
 										   // this information from the command line when the program is run, and thus it will not change
